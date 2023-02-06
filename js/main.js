@@ -1,27 +1,58 @@
+// Sfruttiamo le timing functions per fare il conto alla rovescia per la correzione di domani!
+// Ogni secondo il nostro countdown dovrà scalare fino alle 9: 30 di domani mattina!
+
 const daysEl = document.getElementById("days");
 const hoursEl = document.getElementById("hours");
 const minutesEl = document.getElementById("minutes");
 const secondsEl = document.getElementById("seconds");
-const titleEl = document.getElementById("title");
+
+timerToTomorrow();
+setInterval(timerToTomorrow, 1000);
+
+function timerToTomorrow() {
+    const today = new Date();
+    const tomorrow = new Date("2023-02-07 9:30");
+
+    const msToday = today.getTime();
+    const msTomorrow = tomorrow.getTime();
+    const msToTomorrow = msTomorrow - msToday;
+    const sToTomorrow = Math.floor(msToTomorrow / 1000);
+
+    const seconds = sToTomorrow % 60;
+    const minutes = Math.floor(sToTomorrow / 60) % 60;
+    const hours = Math.floor(sToTomorrow / 3600) % 24;
+    const days = Math.floor(sToTomorrow / 60 / 60 / 24);
+
+    secondsEl.innerHTML = (seconds < 10) ? '0' + seconds : seconds;
+    minutesEl.innerHTML = (minutes < 10) ? '0' + minutes : minutes;
+    hoursEl.innerHTML = (hours < 10) ? '0' + hours : hours;
+    daysEl.innerHTML = (days < 10) ? '0' + days : days;
+}
+
+
+
+
+
+// const titleEl = document.getElementById("title");
 
 // ESEMPIO 1: PASTA
-titleEl.innerHTML = "Butta la pasta!";
-let secondsPasta = 12;
-const clockPasta = setInterval(buttaLaPasta, 1000);
+// titleEl.innerHTML = "Butta la pasta!";
+// let secondsPasta = 12;
+// const clockPasta = setInterval(buttaLaPasta, 1000);
 
-function buttaLaPasta() {
-    if (secondsPasta >= 0) {
-        secondsEl.innerHTML = (secondsPasta < 10) ? '0' + secondsPasta : secondsPasta;
-        secondsPasta--;
+// function buttaLaPasta() {
+//     if (secondsPasta >= 0) {
+//         secondsEl.innerHTML = (secondsPasta < 10) ? '0' + secondsPasta : secondsPasta;
+//         secondsPasta--;
 
-    } else {
-        clearInterval(clockPasta);
-        myConfetti({
-            particleCount: 100,
-            spread: 160
-        });
-    }
-}
+//     } else {
+//         clearInterval(clockPasta);
+//         myConfetti({
+//             particleCount: 100,
+//             spread: 160
+//         });
+//     }
+// }
 
 // ESEMPIO 2: CRONOMETRO
 // titleEl.innerHTML = "Cronometro";
